@@ -4,6 +4,10 @@
 
 An inventory management application for an online seed store.
 
+## Description
+
+The purpose of this project is to practice using the ExpressJS framework to build a RESTful api that communicates with a MongoDB database.
+
 ### Dependencies
 
 - [Express](https://expressjs.com/)
