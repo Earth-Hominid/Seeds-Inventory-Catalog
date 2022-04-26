@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
-    "devstart": "nodemon server/server.js"
+    "devstart": "nodemon server/server.js",
+    "serverstart": "DEBUG=seed-store:* npm run devstart"
   },
   "author": "Chris Doll",
   "license": "MIT",
