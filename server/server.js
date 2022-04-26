@@ -1,5 +1,5 @@
 const express = require('express');
-var path = require('path');
+const path = require('path');
 const dotenv = require('dotenv').config();
 const colors = require('colors');
 const { handleError } = require('./middleware/errorMiddleware');
@@ -8,6 +8,7 @@ const port = process.env.PORT || 5001;
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const catalogRouter = require('./routes/catalog');
 
 connectDatabase();
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 // error handler
 app.use(handleError);
