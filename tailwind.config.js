@@ -62,7 +62,6 @@ module.exports = {
     'm-2',
     'min-w-max',
     'left-14',
-    'shadow-md',
     'text-xs',
     'text-lg',
     'text-base',
