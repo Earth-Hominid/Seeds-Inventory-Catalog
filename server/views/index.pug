@@ -1,15 +1,25 @@
 extends layout
 
 block content
+   
   if error
-    p Error getting dynamic content.
+      p Error getting dynamic content.
   else
-    div
-      p The Seed Database currently holds the following:
-      div.flex.items-center
-        ul
-          li #[strong Products:] !{data.product_count}
-          li #[strong Sub-Categories:] !{data.subcategory_count}
-          li #[strong Categories:] !{data.category_count}
-          li #[strong Departments:] !{data.department_count}
+      div.max-w-md.mx-auto.bg-white.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl.mt-4
+        div.md_flex
+          div.md_shrink-0
+            p.w-full 
+          div.p-8
+            div.uppercase.tracking-wide.text-sm.text-indigo-500.font-semibold.mb-2 Seed Database
+            p.block.mt-2.text-slate-500.mb-1.text-lg The database contains the following:
 
+            a(href="#").block.mt-2.text-lg.leading-tight.font-medium.text-black.hover_underline Products: !{data.product_count}
+
+            a(href="#").block.mt-2.text-lg.leading-tight.font-medium.text-black.hover_underline Sub-Catgories: !{data.subcategory_count}
+            a(href="#").block.mt-2.text-lg.leading-tight.font-medium.text-black.hover_underline Catgories: !{data.category_count}
+            a(href="#").block.mt-2.text-lg.leading-tight.font-medium.text-black.hover_underline Departments: !{data.department_count}
+            
+        
+        
+          
+         
