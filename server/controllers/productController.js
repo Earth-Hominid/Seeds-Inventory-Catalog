@@ -22,11 +22,7 @@ exports.index = (req, res) => {
       },
     },
     function (err, results) {
-      if (err) {
-        res.status(400).json(err);
-      } else {
-        res.status(200).json(results);
-      }
+      res.render('index', { title: 'Seeds Home', error: err, data: results });
     }
   );
 };

@@ -1,11 +1,20 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="utf-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
-    title Node.js with TailwindCSS, Express and Pug
-    link(href="./styles/style.css", rel="stylesheet")
-  body
-    h1 Hello world!
-    p My starter template
+extends layout
+
+block content
+  div.m-2
+    h1= title
+    p Welcome to Seeds, an inventory management website for a seed database.
+
+  h1 Dynamic content
+
+  if error
+    p Error getting dynamic content.
+  else
+    p.text-center The Seed Database currently holds the following:
+
+    ul
+      li #[strong Products:] !{data.product_count}
+      li #[strong Sub-Categories:] !{data.subcategory_count}
+      li #[strong Categories:] !{data.category_count}
+      li #[strong Departments:] !{data.department_count}
+

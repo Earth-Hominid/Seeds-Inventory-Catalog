@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "devstart": "nodemon server/server.js",
     "serverstart": "DEBUG=seed-store:* npm run devstart",
-    "tailwind:css": "postcss server/public/styles/tailwind.css -o server/public/styles/style.css"
+    "build:css": "postcss server/public/styles/tailwind.css -o server/public/styles/style.css"
   },
   "author": "Chris Doll",
   "license": "MIT",
@@ -22,10 +22,10 @@
     "morgan": "^1.10.0",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
-    "pug": "^3.0.2",
-    "tailwindcss": "^3.0.24"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "tailwindcss": "^3.0.24"
   }
 }
