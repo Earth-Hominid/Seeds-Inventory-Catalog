@@ -21,7 +21,7 @@ As Mongoose is a 3rd party vendor, if this were a professional application I wou
 - Follows the MVC (Model, View, Controller) design pattern.
 - Modular structure for route handling code.
 
-## Epiphanies
+## Epiphanies | Resolved Issues
 
 - Models are objects, we use Object Oriented Programming to create each new entry into the database.
 
@@ -33,6 +33,12 @@ ul
       li
         a(href=product.url) #{product.name}
         |  (#{product.category[0].name})
+```
+
+- CSS was rendering for the homepage only. Chrome dev tools showed a MIME type error in the console. To resolve the bug, I needed to add an extra '.' to the stylesheet link, as it resides within the style folder, within the public folder.
+
+```js
+link(href="../styles/style.css",
 ```
 
 ### Dependencies
