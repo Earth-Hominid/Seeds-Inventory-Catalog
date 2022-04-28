@@ -29,15 +29,18 @@ exports.index = (req, res) => {
 
 // Display list of all products
 exports.product_list = (req, res, next) => {
-  Product.find({}, 'name category subcategory')
+  Product.find({}, 'name category')
     .sort({ name: 1 })
-    .populate('category subcategory')
+    .populate('category')
     .exec(function (err, results) {
       if (err) {
         return next(err);
       }
       // successful, thus return results
-      res.status(200).json(results);
+      res.render('product_list', {
+        title: 'Product List',
+        product_list: results,
+      });
     });
 };
 
