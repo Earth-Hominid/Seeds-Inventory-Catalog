@@ -106,6 +106,7 @@ module.exports = {
     'text-black',
     'hover_underline',
     'text-slate-400',
+    'text-slate-300',
     'text-emerald-200',
     'text-indigo-200',
     'text-indigo-300',

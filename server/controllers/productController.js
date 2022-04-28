@@ -22,7 +22,7 @@ exports.index = (req, res) => {
       },
     },
     function (err, results) {
-      res.render('index', { title: 'Seeds Home', error: err, data: results });
+      res.render('index', { title: 'Seeds | Home', error: err, data: results });
     }
   );
 };
