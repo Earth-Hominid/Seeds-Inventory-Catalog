@@ -105,7 +105,10 @@ module.exports = {
     'font-medium',
     'text-black',
     'hover_underline',
-    'text-slate-500',
+    'text-slate-400',
+    'text-emerald-200',
+    'text-indigo-200',
+    'text-indigo-300',
   ],
   theme: {
     extend: {
