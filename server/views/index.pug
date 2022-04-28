@@ -1,20 +1,15 @@
 extends layout
 
 block content
-  div.m-2
-    h1= title
-    p Welcome to Seeds, an inventory management website for a seed database.
-
-  h1 Dynamic content
-
   if error
     p Error getting dynamic content.
   else
-    p.text-center The Seed Database currently holds the following:
-
-    ul
-      li #[strong Products:] !{data.product_count}
-      li #[strong Sub-Categories:] !{data.subcategory_count}
-      li #[strong Categories:] !{data.category_count}
-      li #[strong Departments:] !{data.department_count}
+    div
+      p The Seed Database currently holds the following:
+      div.flex.items-center
+        ul
+          li #[strong Products:] !{data.product_count}
+          li #[strong Sub-Categories:] !{data.subcategory_count}
+          li #[strong Categories:] !{data.category_count}
+          li #[strong Departments:] !{data.department_count}
 
