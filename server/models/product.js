@@ -40,6 +40,10 @@ var ProductSchema = new Schema({
     required: true,
     default: 0,
   },
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
   department: [
     {
       type: Schema.Types.ObjectId,

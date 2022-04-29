@@ -4,11 +4,13 @@ block content
   div.max-w-md.bg-white.mx-auto.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl
     div.md_flex
       div.md_shrink-0    
-    h1 #{category.name}
+        img(src='/images/dolce-basil.png') 
+    //- </div>
+    //- h1 #{category.name}
   
-    each product in category_products
-      a(href=category.url) #{product.name}
-      p #{product.description}
+    //- each product in category_products
+    //-   a(href=category.url) #{product.name}
+    //-   p #{product.description}
              
-    else
-      p.block.mt-2.text-slate-400.mb-1.text-lg This cateogry has no products
+    //- else
+    //-   p.block.mt-2.text-slate-400.mb-1.text-lg This cateogry has no products
