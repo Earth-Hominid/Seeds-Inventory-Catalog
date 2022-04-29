@@ -1,4 +1,9 @@
 const Department = require('../models/department');
+const Category = require('../models/category');
+const Subcategory = require('../models/subcategory');
+const Product = require('../models/product');
+const async = require('async');
+const department = require('../models/department');
 
 // Display all departments
 exports.department_list = (req, res, next) => {
@@ -17,8 +22,40 @@ exports.department_list = (req, res, next) => {
 };
 
 // Dipslay detail page for a specific department:
-exports.department_detail = (req, res) =>
-  res.send('Not implemented yet: Department detail: ' + req.params.id);
+exports.department_detail = (req, res, next) => {
+  async.parallel(
+    {
+      department: (callback) => {
+        Department.findById(req.params.id).exec(callback);
+      },
+      department_category: (callback) => {
+        Category.find({ department: req.params.id }).exec(callback);
+      },
+      department_subcategory: (callback) => {
+        Subcategory.find({ department: req.params.id }).exec(callback);
+      },
+      department_products: (callback) => {
+        Department.find({ department: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.department == null) {
+        let err = new Error('Department not found');
+      }
+      //success, thus render.
+      res.status(200).render('department_detail', {
+        title: 'Department Details',
+        department: results.department,
+        department_category: results.department_category,
+        department_subcategory: results.department_subcategory,
+        department_products: results.department_products,
+      });
+    }
+  );
+};
 
 // Display department create form for GET request.
 exports.department_create_get = (req, res) =>

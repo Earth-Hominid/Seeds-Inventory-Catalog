@@ -33,7 +33,7 @@ exports.category_detail = function (req, res, next) {
 
       category_subcategory: function (callback) {
         Subcategory.find({
-          subcategory: req.params.id,
+          category: req.params.id,
         }).exec(callback);
       },
     },
