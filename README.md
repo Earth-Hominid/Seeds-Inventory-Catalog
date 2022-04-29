@@ -50,3 +50,4 @@ link(href="../../styles/style.css",
 - [Nodemon](https://nodemon.io/) - Development dependency
 - [Mongoose](https://mongoosejs.com/)
 - [Colors](https://www.npmjs.com/package/colors) - Colored text for the console.
+- [Multer](https://github.com/expressjs/multer) Middleware for uploading files
