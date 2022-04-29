@@ -105,6 +105,8 @@ module.exports = {
     'flex-1',
     'max-w-md',
     'max-w-lg',
+    'max-w-sm',
+    'max-w-xs',
     'bg-white',
     'overflow-hidden',
     'md_max-w-2xl',
