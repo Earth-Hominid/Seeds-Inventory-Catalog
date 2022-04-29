@@ -12,3 +12,5 @@ block content
             p.mt-2.text-slate-500.text-xs #{product.description}
             div.block.text-xs.leading-tight.font-medium.text-black.mt-2 $#{`${product.price} | Package Size: ${product.packageSize}`} 
             div.text-xs.font-medium.text-black.mt-2 In Stock: #{product.quantity}
+            div.text-xs
+              p.mt-2.mb-1 #{product.subcategory[0].name} | #{product.category[0].name} | #{product.department[0].title}

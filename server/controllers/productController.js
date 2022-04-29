@@ -49,7 +49,9 @@ exports.product_detail = (req, res, next) => {
   async.parallel(
     {
       product: function (callback) {
-        Product.findById(req.params.id).exec(callback);
+        Product.findById(req.params.id)
+          .populate('subcategory category department')
+          .exec(callback);
       },
 
       product_category: function (callback) {
