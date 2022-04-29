@@ -29,9 +29,9 @@ exports.index = (req, res) => {
 
 // Display list of all products
 exports.product_list = (req, res, next) => {
-  Product.find({}, 'name category')
-    .sort({ name: 1 })
-    .populate('category')
+  Product.find({}, 'name')
+    .sort({ subcategory: 1 })
+    .populate('subcategory category department')
     .exec(function (err, results) {
       if (err) {
         return next(err);

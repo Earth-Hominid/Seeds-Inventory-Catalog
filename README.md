@@ -25,7 +25,7 @@ As Mongoose is a 3rd party vendor, if this were a professional application I wou
 
 - Models are objects, we use Object Oriented Programming to create each new entry into the database.
 
-- In order to grab the name of the cateory object, I needed to add the [0]. This is a puzzle as when running the object through node in the console, category.name works fine. However, to show in PUG, I need to use category[0].name.
+- In order to grab the name of the cateory object, I needed to add the [0]. This is a puzzle as when running the object through node in the console, category.name works fine. However, to show in PUG, "category[0].name" needs to be used.
 
 ```js
 ul

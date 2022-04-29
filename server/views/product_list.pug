@@ -7,13 +7,13 @@ block content
       div.md_shrink-0
         p.w-full 
           div.p-8
-            div.uppercase.tracking-wide.text-lg.text-indigo-300.font-semibold.mb-2
-              h1=title
+              h1.uppercase.tracking-wide.text-lg.text-indigo-300.font-semibold.mb-2=title
               ul
                 each product in product_list
-                  li
-                    a(href=product.url) #{product.name}
-                    |  (#{product.category[0].name})
+                 li
+                    div.block.mt-2.text-sm.leading-tight.font-medium.text-white.hover_underline
+                      a(href=product.url) #{product.name}
+                      |  - #{product.subcategory[0].name}
 
                 else
                   li The database does not contain any products.
