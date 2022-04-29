@@ -479,6 +479,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .left-14 {
   left: 3.5rem;
 }
+.z-40 {
+  z-index: 40;
+}
 .m-0 {
   margin: 0px;
 }
@@ -510,6 +513,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mr-2 {
   margin-right: 0.5rem;
 }
+.ml-52 {
+  margin-left: 13rem;
+}
 .block {
   display: block;
 }
@@ -524,6 +530,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-10 {
   height: 2.5rem;
+}
+.h-full {
+  height: 100%;
 }
 .w-12 {
   width: 3rem;
@@ -583,8 +592,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .cursor-pointer {
   cursor: pointer;
 }
+.scroll-ml-20 {
+  scroll-margin-left: 5rem;
+}
 .flex-col {
   flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .items-center {
   align-items: center;
@@ -646,6 +661,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .p-2 {
   padding: 0.5rem;
+}
+.p-4 {
+  padding: 1rem;
 }
 .p-8 {
   padding: 2rem;

@@ -1,18 +1,14 @@
 extends layout
 
 block content
-
-  h1 Category: #{category.name}
-
-  div
-
-    h4 Products
-
-    dl
-      each product in category_products
-        dt
-          a(href=category.url) #{product.name}
-        dd #{product.description}
-
-      else
-        p This cateogry has no products
+  div.max-w-md.bg-white.mx-auto.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl
+    div.md_flex
+      div.md_shrink-0    
+    h1 #{category.name}
+  
+    each product in category_products
+      a(href=category.url) #{product.name}
+      p #{product.description}
+             
+    else
+      p.block.mt-2.text-slate-400.mb-1.text-lg This cateogry has no products

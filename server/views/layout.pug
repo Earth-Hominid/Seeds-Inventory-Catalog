@@ -6,9 +6,9 @@ html(lang='en')
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
     link(href="../../styles/style.css", rel="stylesheet")
-  body
+  body.bg-gray-700
     div.flex
-      div.fixed.top-0.left-0.h-screen.w-16.ml-0.flex.flex-col.bg-gray-900.text-white.shadow-lg
+      div.fixed.z-40.top-0.left-0.h-screen.w-16.ml-0.flex.flex-col.bg-gray-900.text-white.shadow-lg
         div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-gray-800.text-green-500.hover_bg-emerald-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 🌱
           span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Add product 🌱
         div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-gray-800.text-green-500.hover_bg-emerald-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 🌿
@@ -17,8 +17,8 @@ html(lang='en')
           span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Add category 🪴
         div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-gray-800.text-green-500.hover_bg-emerald-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 🏬
           span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Add department 🏬
-      div.container.bg-gray-800.w-52.h-screen.px-16
-    
+      div.bg-gray-800.w-52.px-16.fixed.h-screen
+
          div.flex.items-center.justify-center.h-10.mt-2.mb-2.ml-4.shadow-lg.bg-gray-600.text-white.hover_bg-gray-800.rounded-md.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.w-28.p-2
           a.text-sm(href='/catalog') 🏡 Home
 
@@ -33,7 +33,7 @@ html(lang='en')
 
          div.flex.items-center.justify-center.h-10.mt-2.mb-2.ml-4.hover_shadow-lg.hover_bg-gray-600.text-slate-400.hover_text-white.rounded-md.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.w-28.text-sm 
           a(href='/catalog/departments') Departments
-      div.bg-gray-700.w-full
+      div.bg-gray-700.w-full.h-screen.ml-52
         block content
 
       

@@ -5,6 +5,7 @@ module.exports = {
   safelist: [
     'flex',
     'flex-col',
+    'flex-wrap',
     'fixed',
     'top-0',
     'left-0',
@@ -59,6 +60,7 @@ module.exports = {
     'hover_text-white',
     'absolute',
     'p-2',
+    'p-4',
     'm-2',
     'min-w-max',
     'left-14',
@@ -94,6 +96,7 @@ module.exports = {
     'md_flex',
     'md_shrink-0',
     'w-full',
+    'h-full',
     'p-8',
     'uppercase',
     'tracking-wide',
@@ -109,6 +112,9 @@ module.exports = {
     'text-emerald-200',
     'text-indigo-200',
     'text-indigo-300',
+    'z-40',
+    'scroll-ml-20',
+    'ml-52',
   ],
   theme: {
     extend: {
