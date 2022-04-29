@@ -35,10 +35,12 @@ ul
         |  (#{product.category[0].name})
 ```
 
-- CSS was rendering for the homepage only. Chrome dev tools showed a MIME type error in the console. To resolve the bug, I needed to add an extra '.' to the stylesheet link, as it resides within the style folder, within the public folder.
+- CSS was rendering for the homepage only. Chrome dev tools showed a MIME type error in the console. To resolve the bug, an extra '.' was required in the stylesheet link. This solved the issue for routes that were one deep, such as '/catalog/departments'.
+
+However, the error still occured on routes that went two deep, such as '/catalog/categories/herbs'. Thus, an additional '../' needed to be added.
 
 ```js
-link(href="../styles/style.css",
+link(href="../../styles/style.css",
 ```
 
 ### Dependencies

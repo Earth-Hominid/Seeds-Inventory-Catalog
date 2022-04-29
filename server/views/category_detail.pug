@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  h1 Category: #{category.name}
+
+  div
+
+    h4 Products
+
+    dl
+      each product in category_products
+        dt
+          a(href=category.url) #{product.name}
+        dd #{product.description}
+
+      else
+        p This cateogry has no products

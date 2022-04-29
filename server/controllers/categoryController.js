@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const Subcategory = require('../models/subcategory');
 const Product = require('../models/product');
 const async = require('async');
 
@@ -29,6 +30,12 @@ exports.category_detail = function (req, res, next) {
       category_products: function (callback) {
         Product.find({ category: req.params.id }).exec(callback);
       },
+
+      category_subcategory: function (callback) {
+        Subcategory.find({
+          subcategory: req.params.id,
+        }).exec(callback);
+      },
     },
     function (err, results) {
       if (err) {
@@ -41,10 +48,11 @@ exports.category_detail = function (req, res, next) {
       }
 
       // Successful, so render
-      res.status(200).json({
-        title: 'Category Detail',
+      res.status(200).render('category_detail', {
+        title: 'Category Details',
         category: results.category,
         category_products: results.category_products,
+        category_subcategory: results.category_subcategory,
       });
     }
   );
