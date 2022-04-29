@@ -1,8 +1,20 @@
 const Department = require('../models/department');
 
 // Display all departments
-exports.department_list = (res, req) =>
-  res.send('Not implented yet: Department List');
+exports.department_list = (req, res, next) => {
+  Department.find({}, 'title')
+    .populate()
+    .exec(function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      //successful, thus return results
+      res.render('department_list', {
+        title: 'Departments',
+        department_list: results,
+      });
+    });
+};
 
 // Dipslay detail page for a specific department:
 exports.department_detail = (req, res) =>
