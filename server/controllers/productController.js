@@ -46,15 +46,35 @@ exports.product_list = (req, res, next) => {
 
 // Display detail page for a specific product:
 exports.product_detail = (req, res, next) => {
-  Product.findById(req.params.id)
-    .populate('department category subcategory')
-    .exec(function (err, results) {
+  async.parallel(
+    {
+      product: function (callback) {
+        Product.findById(req.params.id).exec(callback);
+      },
+
+      product_category: function (callback) {
+        Category.find({ product: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
       if (err) {
         return next(err);
       }
-      //Success, thus render:
-      res.status(200).json(results);
-    });
+      if (results.product == null) {
+        // No results.
+        var err = new Error('Product not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, thus render.
+      res.render('product_detail', {
+        title: 'Product Details',
+        product: results.product,
+        product_cateogry: results.product_category,
+        product_subcategory: results.category_subcategory,
+      });
+    }
+  );
 };
 
 // Display product create form for GET request.
