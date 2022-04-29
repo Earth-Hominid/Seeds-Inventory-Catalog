@@ -22,7 +22,7 @@ exports.index = (req, res) => {
       },
     },
     (err, results) => {
-      res.render('index', {
+      res.status(200).render('index', {
         title: 'Seeds Home',
         error: err,
         data: results,

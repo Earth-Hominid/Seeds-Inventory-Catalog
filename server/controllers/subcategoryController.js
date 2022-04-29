@@ -9,7 +9,10 @@ exports.subcategory_list = (req, res, next) => {
         return next(err);
       }
       //Successful, thus return
-      res.status(200).json(list_subcategories);
+      res.status(200).render('subcategory_list', {
+        title: 'Sub-categories',
+        subcategory_list: list_subcategories,
+      });
     });
 };
 

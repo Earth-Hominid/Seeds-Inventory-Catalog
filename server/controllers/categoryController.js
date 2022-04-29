@@ -11,7 +11,10 @@ exports.category_list = (req, res, next) => {
         return next(err);
       }
       //Successful, thus return
-      res.status(200).json(list_categories);
+      res.status(200).render('category_list', {
+        title: 'Categories',
+        category_list: list_categories,
+      });
     });
 };
 

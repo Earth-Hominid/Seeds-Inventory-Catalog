@@ -37,7 +37,7 @@ exports.product_list = (req, res, next) => {
         return next(err);
       }
       // successful, thus return results
-      res.render('product_list', {
+      res.status(200).render('product_list', {
         title: 'Product List',
         product_list: results,
       });

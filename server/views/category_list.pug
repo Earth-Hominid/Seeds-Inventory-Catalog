@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  div.max-w-md.mx-auto.bg-gray-900.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl.mt-4
+    div.md_flex
+      div.md_shrink-0
+        p.w-full 
+          div.p-8
+              h1.uppercase.tracking-wide.text-lg.text-indigo-300.font-semibold.mb-2=title
+              ul
+                each category in category_list
+                 li
+                    div.block.mt-2.text-sm.leading-tight.font-medium.text-white.hover_underline
+                      a(href=category.url) #{category.name}
+                      
+
+                else
+                  li The database does not contain any categories.
+
+  

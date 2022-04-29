@@ -9,7 +9,7 @@ exports.department_list = (req, res, next) => {
         return next(err);
       }
       //successful, thus return results
-      res.render('department_list', {
+      res.status(200).render('department_list', {
         title: 'Departments',
         department_list: results,
       });
