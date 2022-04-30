@@ -11,6 +11,6 @@ block content
               ul
                 each department in department_list
                   div.block.mt-2.text-sm.leading-tight.font-medium.text-white.hover_underline
-                    a(href=department.url) #{department.title}   
+                    a(href=department.url) #{department.name}   
                 else
                   li The database does not contain any products.

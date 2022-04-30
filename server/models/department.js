@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DepartmentSchema = new Schema({
-  title: {
+  name: {
     type: String,
     required: true,
     minLength: 2,
@@ -11,7 +11,6 @@ var DepartmentSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
     minlength: 5,
     maxlength: 5000,
   },

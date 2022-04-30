@@ -7,7 +7,7 @@ const { body, validationResult } = require('express-validator');
 
 // Display all departments
 exports.department_list = (req, res, next) => {
-  Department.find({}, 'title')
+  Department.find({}, 'name')
     .populate()
     .exec(function (err, results) {
       if (err) {
@@ -78,7 +78,7 @@ exports.department_create_post = [
     const errors = validationResult(req);
 
     // Create a department object with escaped and trimmed data.
-    const department = new Department({ title: req.body.title });
+    const department = new Department({ name: req.body.name });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
@@ -90,16 +90,13 @@ exports.department_create_post = [
       return;
     } else {
       // Data from form is valid.
-      // Check if Department with same title already exists.
+      // Check if Department with same name already exists.
       Department.findOne({
-        title: req.body.title,
+        name: req.body.name,
       }).exec((err, found_department) => {
         if (err) () => next(err);
-        if (found_genre)
-          () =>
-            res.redirect(
-              found_department.url
-            ); // Genre exists, redirect to its detail page.
+        if (found_genre) () => res.redirect(found_department.url);
+        // Genre exists, redirect to its detail page.
         else {
           department.save((err) => {
             if (err) () => next(err); // Department saved. Redirect to department detail page.
