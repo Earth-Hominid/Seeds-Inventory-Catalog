@@ -3,7 +3,7 @@ const Category = require('../models/category');
 const Subcategory = require('../models/subcategory');
 const Product = require('../models/product');
 const async = require('async');
-const department = require('../models/department');
+const { body, validationResult } = require('express-validator');
 
 // Display all departments
 exports.department_list = (req, res, next) => {
@@ -35,7 +35,7 @@ exports.department_detail = (req, res, next) => {
         Subcategory.find({ department: req.params.id }).exec(callback);
       },
       department_products: (callback) => {
-        Department.find({ department: req.params.id }).exec(callback);
+        Product.find({ department: req.params.id }).exec(callback);
       },
     },
     (err, results) => {
@@ -58,12 +58,58 @@ exports.department_detail = (req, res, next) => {
 };
 
 // Display department create form for GET request.
-exports.department_create_get = (req, res) =>
-  res.send('Not implemented yet: Department create GET');
+exports.department_create_get = (req, res, next) => {
+  res.render('department_form', { title: 'Create Department' });
+};
 
 // Handle Department create on POST
-exports.department_create_post = (req, res) =>
-  res.send('Not implemented yet: Department create POST');
+exports.department_create_post = [
+  // Validate and sanitize the name field.
+  body('name', 'Department name required')
+    .trim()
+    .isLength({
+      min: 1,
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a department object with escaped and trimmed data.
+    const department = new Department({ title: req.body.title });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render('department_form', {
+        title: 'Create Deparmtent',
+        department: department,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Department with same title already exists.
+      Department.findOne({
+        title: req.body.title,
+      }).exec((err, found_department) => {
+        if (err) () => next(err);
+        if (found_genre)
+          () =>
+            res.redirect(
+              found_department.url
+            ); // Genre exists, redirect to its detail page.
+        else {
+          department.save((err) => {
+            if (err) () => next(err); // Department saved. Redirect to department detail page.
+            res.redirect(department.url);
+          });
+        }
+      });
+    }
+  },
+];
 
 // Display Department delete form on GET request.
 exports.department_delete_get = (req, res) =>
