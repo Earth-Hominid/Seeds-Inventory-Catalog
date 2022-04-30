@@ -1,16 +1,17 @@
 extends layout 
 
 block content 
+  div.max-w-xs.bg-gray-900.mx-auto.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl.m-4
+      div.md_flex.flex-col
+          h1.uppercase.tracking-wide.text-xl.text-indigo-300.font-semibold.text-center.p-2 #{title}
 
-  h1 #{title}
-
-  form(method='POST' action='')
-    div
-      label(for='title') Department: 
-      input#title(type='text', placeholder='Fantasy, Poetry etc.' name='name' value=(undefined===genre ? '' : genre.name))
-    button(type='submit') Submit
-  
-  if errors 
-    ul 
-      for error in errors 
-      li!=error.msg
+          form(method='POST' action='')
+            div.flex.justify-center.text-sm
+              label.mt-4.text-gray-400.px-4.pb-2(for='title') Department:
+              input.max-h-20#name(type='text', placeholder="Enter name" name='name' value=(undefined===department ? '' : department.title))
+            div.m-4.flex.justify-center
+              button.p-2.bg-indigo-500.w-auto.text-slate-100.rounded-lg.text-lg(type='submit') Submit
+          if errors 
+            ul 
+              for error in errors 
+                li.text-red-500.text-center!=error.msg
