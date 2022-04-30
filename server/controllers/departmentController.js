@@ -95,7 +95,7 @@ exports.department_create_post = [
         name: req.body.name,
       }).exec((err, found_department) => {
         if (err) () => next(err);
-        if (found_genre) () => res.redirect(found_department.url);
+        if (found_department) () => res.redirect(found_department.url);
         // Genre exists, redirect to its detail page.
         else {
           department.save((err) => {
