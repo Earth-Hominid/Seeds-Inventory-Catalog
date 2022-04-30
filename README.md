@@ -51,3 +51,4 @@ link(href="../../styles/style.css",
 - [Mongoose](https://mongoosejs.com/)
 - [Colors](https://www.npmjs.com/package/colors) - Colored text for the console.
 - [Multer](https://github.com/expressjs/multer) Middleware for uploading files
+- [Express-Validator](https://express-validator.github.io/docs/#basic-guide)
