@@ -60,6 +60,7 @@ module.exports = {
     'bg-gray-800',
     'text-green-500',
     'hover_bg-green-600',
+    'hover_bg-indigo-600',
     'ml-2',
     'ml-4',
     'mr-2',
