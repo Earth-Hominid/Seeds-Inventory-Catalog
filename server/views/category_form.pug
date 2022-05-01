@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+  div.max-w-xs.bg-gray-900.mx-auto.rounded-xl.shadow-md.overflow-hidden.m-4
+    h1.tracking-wide.text-xl.text-indigo-300.font-semibold.text-center.p-2 #{title}
+
+          form(method='POST' action='')
+            div.flex.flex-col.m-2.p-2
+              label.mt-4.text-gray-400.px-4.pb-2(for='name') Name:
+              input.max-h-20.text-slate-700.text-sm#name(type='text', placeholder="Enter name" required='true' name='name' value=(undefined===category ? '' : category.name))
+              label.mt-4.text-gray-400.px-4.pb-2(for='description') Description:
+              textarea.text-slate-700.text-sm.max-h-20#description(type='text', placeholder="Enter description" name='description' required='true' value=(undefined===category ? '' : category.description))
+            div.m-4.flex.justify-center
+              button.p-2.bg-indigo-500.hover_bg-indigo-600.w-auto.text-slate-100.rounded-md.text-lg(type='submit') Submit
+          if errors 
+            ul 
+              for error in errors 
+                li.text-red-500.text-center!=error.msg

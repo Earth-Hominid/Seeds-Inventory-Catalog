@@ -13,7 +13,6 @@ var CategorySchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'Department',
-      required: true,
     },
   ],
   description: {

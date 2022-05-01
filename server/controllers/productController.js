@@ -2,7 +2,7 @@ const Product = require('../models/product');
 const Department = require('../models/department');
 const Category = require('../models/category');
 const SubCategory = require('../models/subcategory');
-
+const { body, validationResult } = require('express-validator');
 const async = require('async');
 
 exports.index = (req, res) => {
