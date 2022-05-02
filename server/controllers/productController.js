@@ -4,7 +4,6 @@ const Category = require('../models/category');
 const SubCategory = require('../models/subcategory');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
-const subcategory = require('../models/subcategory');
 
 exports.index = (req, res) => {
   async.parallel(
@@ -111,31 +110,6 @@ exports.product_create_get = (req, res, next) => {
 
 // Handle product create on POST
 exports.product_create_post = [
-  // Convert category to an array.
-  (req, res, next) => {
-    if (!(req.body.category instanceof Array)) {
-      if (typeof req.body.category === 'undefined') req.body.category = [];
-      else req.body.category = new Array(req.body.category);
-    }
-
-    if (!(req.body.subcategory instanceof Array)) {
-      if (typeof req.body.subcategory === 'undefined')
-        req.body.subcategory = [];
-      else req.body.subcategory = new Array(req.body.subcategory);
-    }
-
-    if (!(req.body.department instanceof Array)) {
-      if (typeof req.body.department === 'undefined') req.body.department = [];
-      else req.body.department = new Array(req.body.department);
-    }
-
-    next();
-  },
-  // Convert subcategory to an array
-  (req, res, next) => {
-    next();
-  },
-
   // Validate and sanitize fields.
   body('name')
     .trim()
@@ -172,9 +146,9 @@ exports.product_create_post = [
     .withMessage('A seeds per gram value needs to be provided.')
     .isAlphanumeric()
     .withMessage('Seeds per gram value has non-alphanumeric characters.'),
-  body('category.*').escape(),
-  body('subcategory.*').escape(),
-  body('department.*'),
+  body('category').escape(),
+  body('subcategory').escape(),
+  body('department').escape(),
 
   // Process request after validation and sanitization
 
@@ -203,37 +177,18 @@ exports.product_create_post = [
 
       async.parallel(
         {
-          department: (callback) => Department.find(callback),
-          category: (callback) => Category.find(callback),
-          subcategory: (callback) => Subcategory.find(callback),
+          departments: (callback) => Department.find(callback),
+          categories: (callback) => Category.find(callback),
+          subcategories: (callback) => Subcategory.find(callback),
         },
         (err, results) => {
           if (err) () => next(err);
 
-          // Mark our selected category, sub-category and department as checked.
-          for (let i = 0; i < results.category.length; i++) {
-            if (product.category.indexOf(results.categories[i]._id) > -1) {
-              results.categories[i].checked = 'true';
-            }
-          }
-          for (let i = 0; i < results.subcategory.length; i++) {
-            if (
-              product.subcategory.indexOf(results.subcategories[i]._id) > -1
-            ) {
-              results.subcategories[i].checked = 'true';
-            }
-          }
-          for (let i = 0; i < results.department.length; i++) {
-            if (product.department.indexOf(results.departments[i]._id) > -1) {
-              results.departments[i].checked = 'true';
-            }
-          }
-
           res.render('product_form', {
             title: 'Add A Product',
-            category: results.categories,
-            subcategory: results.subcategories,
-            department: results.departments,
+            categories: results.categories,
+            subcategories: results.subcategories,
+            departments: results.departments,
             product: product,
             errors: errors.array(),
           });
@@ -245,7 +200,6 @@ exports.product_create_post = [
       product.save((err) => {
         if (err) () => next(err);
         //successful - redirect to new product record.
-
         res.redirect(product.url);
       });
     }
