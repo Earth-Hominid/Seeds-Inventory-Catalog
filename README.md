@@ -13,7 +13,9 @@ The application provides inventory control software for a seed company. The Seed
 Departments, categories, sub-categories and products can be created, added, deleted and updated.
 
 MongoDB was chosen due to it's ease of of use and fast time to productivity. In order to communicate with the database, Mongoose (an ODM library for MongoDB) was chosen for its simplicity and fast learning curve.
+
 This project is a simple application to assist in learning the ExpressJS framework. As it is not customer facing software, efficiency and performance were sacrificed by electing to use Mongoose, rather tahn MongoDB's direct query language (MQL).
+
 As Mongoose is a 3rd party vendor, if this were a professional application I would research MongoDB's native drivers and elect to utilize them over Mongoose.
 
 ## Features
