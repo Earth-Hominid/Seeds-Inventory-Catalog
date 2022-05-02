@@ -52,3 +52,4 @@ link(href="../../styles/style.css",
 - [Colors](https://www.npmjs.com/package/colors) - Colored text for the console.
 - [Multer](https://github.com/expressjs/multer) Middleware for uploading files
 - [Express-Validator](https://express-validator.github.io/docs/#basic-guide)
+- [ValidatorJS](https://github.com/validatorjs/validator.js)
