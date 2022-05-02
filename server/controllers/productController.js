@@ -111,12 +111,28 @@ exports.product_create_get = (req, res, next) => {
 
 // Handle product create on POST
 exports.product_create_post = [
-  // Convert the category to an array.
+  // Convert category to an array.
   (req, res, next) => {
     if (!(req.body.category instanceof Array)) {
       if (typeof req.body.category === 'undefined') req.body.category = [];
       else req.body.category = new Array(req.body.category);
     }
+
+    if (!(req.body.subcategory instanceof Array)) {
+      if (typeof req.body.subcategory === 'undefined')
+        req.body.subcategory = [];
+      else req.body.subcategory = new Array(req.body.subcategory);
+    }
+
+    if (!(req.body.department instanceof Array)) {
+      if (typeof req.body.department === 'undefined') req.body.department = [];
+      else req.body.department = new Array(req.body.department);
+    }
+
+    next();
+  },
+  // Convert subcategory to an array
+  (req, res, next) => {
     next();
   },
 
