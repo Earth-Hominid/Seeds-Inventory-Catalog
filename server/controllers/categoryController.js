@@ -3,6 +3,7 @@ const Subcategory = require('../models/subcategory');
 const Product = require('../models/product');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const department = require('../models/department');
 
 // Display list of all categories
 exports.category_list = (req, res, next) => {
@@ -58,9 +59,27 @@ exports.category_detail = function (req, res, next) {
     }
   );
 };
+
 // Display category create form for GET request.
-exports.category_create_get = (req, res) =>
-  res.render('category_form', { title: 'Create A Category' });
+exports.category_create_get = (req, res, next) => {
+  // Get all departments, in order to add it to the category.
+
+  async.parallel(
+    {
+      departments: (callback) => {
+        Department.find(callback);
+      },
+    },
+
+    (err, results) => {
+      if (err) () => next(err);
+      res.render('category_form', {
+        title: 'Create A Category',
+        departments: results.departments,
+      });
+    }
+  );
+};
 
 // Handle category create on POST
 exports.category_create_post = (req, res, next) => [

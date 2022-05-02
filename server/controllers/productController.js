@@ -4,6 +4,7 @@ const Category = require('../models/category');
 const SubCategory = require('../models/subcategory');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
+const subcategory = require('../models/subcategory');
 
 exports.index = (req, res) => {
   async.parallel(
@@ -80,8 +81,33 @@ exports.product_detail = (req, res, next) => {
 };
 
 // Display product create form for GET request.
-exports.product_create_get = (req, res) =>
-  res.send('Not implemented yet: product create GET');
+exports.product_create_get = (req, res, next) => {
+  // Get all categories, subcategories and departments, which we can use for adding to the product.
+
+  async.parallel(
+    {
+      categories: (callback) => {
+        Category.find(callback);
+      },
+      subcategories: (callback) => {
+        Subcategory.find(callback);
+      },
+      departments: (callbcack) => {
+        Department.find(callback);
+      },
+    },
+
+    (err, results) => {
+      if (err) () => next(err);
+      res.render('product_form', {
+        title: 'Add Product',
+        categories: results.categories,
+        subcategories: results.subcategories,
+        departments: results.departments,
+      });
+    }
+  );
+};
 
 // Handle product create on POST
 exports.product_create_post = (req, res) =>
