@@ -1,7 +1,9 @@
 const Subcategory = require('../models/subcategory');
 const Category = require('../models/category');
 const Product = require('../models/product');
+const Department = require('../models/department');
 const async = require('async');
+const { body, validationResult } = require('express-validator');
 
 // Display list of all subcategories
 exports.subcategory_list = (req, res, next) => {
@@ -56,8 +58,28 @@ exports.subcategory_detail = (req, res, next) => {
 };
 
 // Display subcategory create form for GET request.
-exports.subcategory_create_get = (req, res) =>
-  res.send('Not implemented yet: subcategory create GET');
+exports.subcategory_create_get = (req, res, next) => {
+  // Get all departments and categories, in order to add them to the subcategory.
+
+  async.parallel(
+    {
+      departments: (callback) => {
+        Department.find(callback);
+      },
+      categories: (callback) => {
+        Category.find(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      res.render('subcategory_form', {
+        title: 'Create a Sub-Category',
+        departments: results.departments,
+        categories: results.categories,
+      });
+    }
+  );
+};
 
 // Handle subcategory create on POST
 exports.subcategory_create_post = (req, res) =>
