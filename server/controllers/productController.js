@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const Department = require('../models/department');
 const Category = require('../models/category');
-const SubCategory = require('../models/subcategory');
+const Subcategory = require('../models/subcategory');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
 
@@ -18,7 +18,7 @@ exports.index = (req, res) => {
         Category.countDocuments({}, callback);
       },
       subcategory_count: function (callback) {
-        SubCategory.countDocuments({}, callback);
+        Subcategory.countDocuments({}, callback);
       },
     },
     function (err, results) {
@@ -91,7 +91,7 @@ exports.product_create_get = (req, res, next) => {
       subcategories: (callback) => {
         Subcategory.find(callback);
       },
-      departments: (callbcack) => {
+      departments: (callback) => {
         Department.find(callback);
       },
     },

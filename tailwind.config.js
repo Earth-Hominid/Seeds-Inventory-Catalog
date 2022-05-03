@@ -21,6 +21,7 @@ module.exports = {
     'w-52',
     'w-96',
     'w-3/4',
+    'w-1/2',
     'w-auto',
     'h-auto',
     'h-48',

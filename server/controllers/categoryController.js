@@ -3,7 +3,7 @@ const Subcategory = require('../models/subcategory');
 const Product = require('../models/product');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
-const department = require('../models/department');
+const Department = require('../models/department');
 
 // Display list of all categories
 exports.category_list = (req, res, next) => {

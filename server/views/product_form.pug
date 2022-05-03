@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1.text-xl.text-indigo-300.text-center= title
+
+  div.bg-gray-900.m-2.rounded-lg
+    form(method='POST' action='')
+      div.flex.flex-col.flex-wrap.items-center.justify-center
+        h1.text-white.m-2 * Please fill out all fields.
+        label.text-white(for='name') Name: 
+        input.rounded-md#name(type='text', placheholder="Product name" name='name' required='true' value=(undefined === product ? '' : product.name))
+        label.text-white(for='stockNumber') Stock Number: 
+        input.rounded-md#stockNumber(
+        type='text', 
+        placheholder="Enter stock number" 
+        name='stockNumber' required='true' 
+        value=(undefined === product ? '' : product.stockNumber))
+        label.text-white(for='description') Description: 
+        textarea.rounded-md#description(type='textarea' placheholder='Provide a description' name='description' required='true' value=(undefined === product ? '' : product.description))
+        label.text-white(for='price') Price: 
+        input.rounded-md.text-black#price(type='number', placheholder='Retail price' name='price' required='true' value=(undefined === product ? '' : product.price))
+        label.text-white(for='packageSize') Package size: 
+        input.rounded-md#packageSize(type='text', placheholder='Package size' name='packageSize' required='true' value=(undefined === product ? '' : product.packageSize))
+        label.text-white(for='seedsPerGram') Seeds per gram: 
+        input.rounded-md#seedsPerGram(type='text', placheholder='Seeds per gram.' name='seedsPerGram' required='true' value=(undefined === product ? '' : product.seedsPerGram))
+        label.text-white(for='quantity') In stock quantity: 
+        input.rounded-md#quantity(type='number', placheholder='In stock quantity' name='quantity' required='true' value=(undefined === product ? '' : product.quantity))
+
+        //- label.text-white(for='department') Department:
+        //- select#department(type='select', placheholder='Select department' name='department' required='true' ) - departments.sort()
+        //-   for department in departments 
+        //-     if product 
+        //-     option(value=category._id selected=(department._id.toString() === product.department._id.toString() ? 'selected' : false)) #{department.name} 
+        //-     else
+        //-       option(value=category._id) #{category.name}
+
+          
+        
+
+        div.m-2
+          button.text-white.p-2.bg-indigo-500.rounded-lg.hover_bg-indigo-600(type='submit') Submit
+        
+
+  
+  
+  
+  //- if errors 
+  //-   ul 
+  //-     for error in errors 
+  //-       li!= error.msg
+        
+    
+
+
