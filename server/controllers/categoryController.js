@@ -74,7 +74,7 @@ exports.category_create_get = (req, res, next) => {
     (err, results) => {
       if (err) () => next(err);
       res.render('category_form', {
-        title: 'Create A Category',
+        title: 'Create a Category',
         departments: results.departments,
       });
     }
@@ -82,7 +82,7 @@ exports.category_create_get = (req, res, next) => {
 };
 
 // Handle category create on POST
-exports.category_create_post = (req, res, next) => [
+exports.category_create_post = [
   // Validate and sanitize fields.
   body('name')
     .trim()
@@ -102,27 +102,35 @@ exports.category_create_post = (req, res, next) => [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
+    // Create a category object with escaped and trimmed data.
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      department: req.body.department,
+    });
+
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/errors messages.
       res.render('category_form', {
-        title: 'Create A Category',
-        category: req.body,
+        title: 'Create a Category',
+        category: category,
         errors: errors.array(),
       });
       return;
     } else {
       // Data from form is valid.
-
-      // Create a Category object with escaped and trimmed data.
-      const category = new Category({
-        name: req.body.name,
-        description: req.body.description,
-      });
-
-      category.save((err) => {
+      //Check if Category with same name already exists.
+      Category.findOne({ name: req.body.name }).exec((err, found_category) => {
         if (err) () => next(err);
-        // Successful, thus render.
-        res.redirect(category.url);
+        if (found_category) () => res.redirect(found_category.url);
+        else
+          category.save((err) => {
+            if (err) () => next(err);
+
+            // Category saved. Redirect to category detail page.
+            res.redirect(category.url);
+          });
       });
     }
   },
