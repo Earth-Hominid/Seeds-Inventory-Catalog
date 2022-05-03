@@ -82,8 +82,59 @@ exports.subcategory_create_get = (req, res, next) => {
 };
 
 // Handle subcategory create on POST
-exports.subcategory_create_post = (req, res) =>
-  res.send('Not implemented yet: subcategory create POST');
+exports.subcategory_create_post = [
+  //Validate and sanitize fields.
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Name must be specified.')
+    .isAlphanumeric()
+    .withMessage('Name has non-alphanumeric characters.'),
+  body('description')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('A description must be provided.'),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a sub-category object with escaped and trimmed data.
+    const subcategory = new Subcategory({
+      name: req.body.name,
+      description: req.body.description,
+      department: req.body.department,
+    });
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      res.render('subcategory_form', {
+        title: 'Create a Sub-Category',
+        subcategory: subcategory,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      //Check if Sub-category with same name already exists.
+      Subcategory.findOne({ name: req.body.name }).exec(
+        (err, found_subcategory) => {
+          if (err) () => next(err);
+          if (found_subcategory) () => res.redirect(found_subcategory.url);
+          else
+            subcategory.save((err) => {
+              if (err) () => next(err);
+
+              // Category saved. Redirect to sub-category detail page.
+              res.redirect(subcategory.url);
+            });
+        }
+      );
+    }
+  },
+];
 
 // Display subcategory delete form on GET request.
 exports.subcategory_delete_get = (req, res) =>
