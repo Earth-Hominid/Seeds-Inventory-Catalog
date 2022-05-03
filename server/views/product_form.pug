@@ -18,7 +18,7 @@ block content
         label.text-white(for='description') Description: 
         textarea.rounded-md#description(type='textarea' placheholder='Provide a description' name='description' required='true' value=(undefined === product ? '' : product.description))
         label.text-white(for='price') Price: 
-        input.rounded-md.text-black#price(type='number', placheholder='Retail price' name='price' required='true' value=(undefined === product ? '' : product.price))
+        input.rounded-md.text-black#price(type='number', step="0.01" min="0" placheholder='Retail price' name='price' required='true' value=(undefined === product ? '' : product.price))
         label.text-white(for='packageSize') Package size: 
         input.rounded-md#packageSize(type='text', placheholder='Package size' name='packageSize' required='true' value=(undefined === product ? '' : product.packageSize))
         label.text-white(for='seedsPerGram') Seeds per gram: 
@@ -26,14 +26,35 @@ block content
         label.text-white(for='quantity') In stock quantity: 
         input.rounded-md#quantity(type='number', placheholder='In stock quantity' name='quantity' required='true' value=(undefined === product ? '' : product.quantity))
 
-        //- label.text-white(for='department') Department:
-        //- select#department(type='select', placheholder='Select department' name='department' required='true' ) - departments.sort()
-        //-   for department in departments 
+        label.text-white(for='department') Department:
+
+        select#department(type='select', placheholder='Select department' name='department' required='true' )
+          for department in departments 
+            if product 
+              option(value=department._id selected=(department._id.toString()===product.department._id.toString() ? 'selected' : false) ) #{department.name} 
+            else
+              option(value=department._id) #{department.name}
+        
+        //- label.text-white(for='category') Category:
+
+        //- select#category(type='select', placheholder='Select category' name='category' required='true' )
+        //-   for category in categories 
         //-     if product 
-        //-     option(value=category._id selected=(department._id.toString() === product.department._id.toString() ? 'selected' : false)) #{department.name} 
+        //-       option(value=category._id selected=(category._id===product.category._id ? 'selected' : false)) #{category.name} 
         //-     else
         //-       option(value=category._id) #{category.name}
+        
+        //- label.text-white(for='subcategory') Sub-Category:
 
+        //- select#subcategory(type='select', placheholder='Select subcategory' name='subcategory' required='true' )
+        //-   for subcategory in subcategories 
+        //-     if product 
+        //-       option(value=subcategory._id selected=(subcategory._id===product.subcategory._id ? 'selected' : false)) #{category.name} 
+            else
+              option(value=subcategory._id) #{subcategory.name}
+        
+            
+      
           
         
 
