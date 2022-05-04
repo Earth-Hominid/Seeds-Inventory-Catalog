@@ -35,21 +35,21 @@ block content
             else
               option(value=department._id) #{department.name}
         
-        //- label.text-white(for='category') Category:
+        label.text-white(for='category') Category:
 
-        //- select#category(type='select', placheholder='Select category' name='category' required='true' )
-        //-   for category in categories 
-        //-     if product 
-        //-       option(value=category._id selected=(category._id===product.category._id ? 'selected' : false)) #{category.name} 
-        //-     else
-        //-       option(value=category._id) #{category.name}
+        select#category(type='select', placheholder='Select category' name='category' required='true' )
+          for category in categories 
+            if product 
+              option(value=category._id selected=(category._id===product.category._id ? 'selected' : false)) #{category.name} 
+            else
+              option(value=category._id) #{category.name}
         
-        //- label.text-white(for='subcategory') Sub-Category:
+        label.text-white(for='subcategory') Sub-Category:
 
-        //- select#subcategory(type='select', placheholder='Select subcategory' name='subcategory' required='true' )
-        //-   for subcategory in subcategories 
-        //-     if product 
-        //-       option(value=subcategory._id selected=(subcategory._id===product.subcategory._id ? 'selected' : false)) #{category.name} 
+        select#subcategory(type='select', placheholder='Select subcategory' name='subcategory' required='true' )
+          for subcategory in subcategories 
+            if product 
+              option(value=subcategory._id selected=(subcategory._id===product.subcategory._id ? 'selected' : false)) #{category.name} 
             else
               option(value=subcategory._id) #{subcategory.name}
         
