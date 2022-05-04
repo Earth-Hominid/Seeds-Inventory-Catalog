@@ -85,21 +85,20 @@ exports.product_create_get = (req, res, next) => {
 
   async.parallel(
     {
+      departments: (callback) => {
+        Department.find(callback);
+      },
       categories: (callback) => {
         Category.find(callback);
       },
       subcategories: (callback) => {
         Subcategory.find(callback);
       },
-      departments: (callback) => {
-        Department.find(callback);
-      },
     },
-
     (err, results) => {
       if (err) () => next(err);
       res.render('product_form', {
-        title: 'Add Product',
+        title: 'Add a Product',
         categories: results.categories,
         subcategories: results.subcategories,
         departments: results.departments,
@@ -139,16 +138,6 @@ exports.product_create_post = [
     .withMessage('A size needs to be provided.')
     .isAlphanumeric()
     .withMessage('Package size has non-alphanumeric characters.'),
-  body('seedsPerGram')
-    .trim()
-    .isLength({ min: 1 })
-    .escape()
-    .withMessage('A seeds per gram value needs to be provided.')
-    .isAlphanumeric()
-    .withMessage('Seeds per gram value has non-alphanumeric characters.'),
-  body('category').escape(),
-  body('subcategory').escape(),
-  body('department').escape(),
 
   // Process request after validation and sanitization
 
@@ -164,7 +153,6 @@ exports.product_create_post = [
       description: req.body.description,
       price: req.body.price,
       packageSize: req.body.packageSize,
-      seedsPerGram: req.body.seedsPerGram,
       quantity: req.body.quantity,
       category: req.body.category,
       subcategory: req.body.subcategory,
@@ -173,34 +161,25 @@ exports.product_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
 
-      // Get all category, subcategory, department for form.
-
-      async.parallel(
-        {
-          departments: (callback) => Department.find(callback),
-          categories: (callback) => Category.find(callback),
-          subcategories: (callback) => Subcategory.find(callback),
-        },
-        (err, results) => {
-          if (err) () => next(err);
-
-          res.render('product_form', {
-            title: 'Add A Product',
-            categories: results.categories,
-            subcategories: results.subcategories,
-            departments: results.departments,
-            product: product,
-            errors: errors.array(),
-          });
-        }
-      );
+      res.render('product_form', {
+        title: 'Add a Product',
+        product: product,
+        errors: errors.array(),
+      });
       return;
     } else {
-      // Data from form is valid. Save Product.
-      product.save((err) => {
+      // Data from form is valid.
+      // Check if Product with same name already exists.
+      Product.findOne({ name: req.body.name }).exec((err, found_product) => {
         if (err) () => next(err);
-        //successful - redirect to new product record.
-        res.redirect(product.url);
+        if (found_product) () => res.redirect(found_product.url);
+        else
+          product.save((err) => {
+            if (err) () => next(err);
+
+            // Product saved. Redirect to product detail page.
+            res.redirect(product.url);
+          });
       });
     }
   },
