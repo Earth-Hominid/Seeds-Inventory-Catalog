@@ -144,6 +144,8 @@ module.exports = {
     'uppercase',
     'tracking-wide',
     'text-indigo-500',
+    'text-indigo-700',
+    'text-indigo-800',
     'font-semibold',
     'block',
     'leading-tight',
