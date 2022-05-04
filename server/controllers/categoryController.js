@@ -88,9 +88,7 @@ exports.category_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage('Name must be specified.')
-    .isAlphanumeric()
-    .withMessage('Name has non-alphanumeric characters.'),
+    .withMessage('Name must be specified.'),
   body('description')
     .trim()
     .isLength({ min: 1 })
@@ -103,7 +101,6 @@ exports.category_create_post = [
     const errors = validationResult(req);
 
     // Create a category object with escaped and trimmed data.
-
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
