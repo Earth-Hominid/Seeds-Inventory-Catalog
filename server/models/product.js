@@ -31,13 +31,8 @@ var ProductSchema = new Schema({
     minLength: 2,
     maxlength: 100,
   },
-  seedsPerGram: {
-    type: String,
-    maxlength: 20,
-  },
   quantity: {
     type: Number,
-    required: true,
     default: 0,
   },
   image: {
