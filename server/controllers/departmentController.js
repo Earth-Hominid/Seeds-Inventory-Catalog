@@ -65,12 +65,16 @@ exports.department_create_get = (req, res, next) => {
 // Handle Department create on POST
 exports.department_create_post = [
   // Validate and sanitize the name field.
-  body('name', 'Department name required')
+  body('name')
     .trim()
-    .isLength({
-      min: 1,
-    })
-    .escape(),
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Department name required'),
+  body('description')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('A descrption must be provided.'),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -78,12 +82,15 @@ exports.department_create_post = [
     const errors = validationResult(req);
 
     // Create a department object with escaped and trimmed data.
-    const department = new Department({ name: req.body.name });
+    const department = new Department({
+      name: req.body.name,
+      description: req.body.description,
+    });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
       res.render('department_form', {
-        title: 'Create Deparmtent',
+        title: 'Create Department',
         department: department,
         errors: errors.array(),
       });
