@@ -6,7 +6,7 @@ var CategorySchema = new Schema({
   name: {
     type: String,
     required: true,
-    minLength: 2,
+    minLength: 1,
     maxlength: 100,
   },
   department: [
@@ -17,7 +17,7 @@ var CategorySchema = new Schema({
   ],
   description: {
     type: String,
-    minlength: 5,
+    minlength: 1,
     maxlength: 5000,
   },
 });
