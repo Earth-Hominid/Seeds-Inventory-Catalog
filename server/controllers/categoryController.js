@@ -134,8 +134,35 @@ exports.category_create_post = [
 ];
 
 // Display category delete form on GET request.
-exports.category_delete_get = (req, res) =>
-  res.send('Not implemented yet: category delete GET');
+exports.category_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      category: (callback) => {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_products: (callback) => {
+        Product.find({ category: req.params.id }).exec(callback);
+      },
+      category_subcategories: (callback) => {
+        Subcategory.find({ subcategory: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.category == null) {
+        // No results.
+        res.redirect('/catalog/category');
+      }
+      // Successful, thus render.
+      res.render('category_delete', {
+        title: 'Delete Category',
+        category: results.category,
+        category_products: results.category_products,
+        category_subcategories: results.category_subcategories,
+      });
+    }
+  );
+};
 
 // Display category delete on POST.
 exports.category_delete_post = (req, res) =>
