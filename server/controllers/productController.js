@@ -30,9 +30,9 @@ exports.index = (req, res) => {
 // Display list of all products
 exports.product_list = (req, res, next) => {
   Product.find({}, 'name')
-    .sort({ subcategory: 1 })
+    .sort({ name: 1 })
     .populate('subcategory category department')
-    .exec(function (err, results) {
+    .exec((err, results) => {
       if (err) {
         return next(err);
       }
@@ -48,14 +48,21 @@ exports.product_list = (req, res, next) => {
 exports.product_detail = (req, res, next) => {
   async.parallel(
     {
-      product: function (callback) {
+      product: (callback) => {
         Product.findById(req.params.id)
-          .populate('subcategory category department')
+          .populate('subcategory')
+          .populate('category')
+          .populate('department')
           .exec(callback);
       },
-
       product_category: function (callback) {
         Category.find({ product: req.params.id }).exec(callback);
+      },
+      product_subcategory: (callback) => {
+        Subcategory.find({ product: req.params.id }).exec(callback);
+      },
+      product_department: (callback) => {
+        Department.find({ product: req.params.id }).exec(callback);
       },
     },
     function (err, results) {
@@ -71,6 +78,7 @@ exports.product_detail = (req, res, next) => {
       // Successful, thus render.
       res.render('product_detail', {
         title: 'Product Details',
+        name: results.product.name,
         product: results.product,
         product_cateogry: results.product_category,
         product_subcategory: results.category_subcategory,
@@ -85,20 +93,21 @@ exports.product_create_get = (req, res, next) => {
 
   async.parallel(
     {
-      departments: (callback) => {
-        Department.find(callback);
-      },
       categories: (callback) => {
         Category.find(callback);
       },
       subcategories: (callback) => {
         Subcategory.find(callback);
       },
+      departments: (callback) => {
+        Department.find(callback);
+      },
     },
+
     (err, results) => {
       if (err) () => next(err);
       res.render('product_form', {
-        title: 'Add a Product',
+        title: 'Add Product',
         categories: results.categories,
         subcategories: results.subcategories,
         departments: results.departments,
@@ -114,30 +123,22 @@ exports.product_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage('Name needs to be specified.')
-    .isAlphanumeric()
-    .withMessage('Name has non-alphanumeric characters.'),
+    .withMessage('Name needs to be specified.'),
   body('stockNumber')
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage('Stock number needs to be specified.')
-    .isAlphanumeric()
-    .withMessage('Stock number has non-alphanumeric characters.'),
+    .withMessage('Stock number needs to be specified.'),
   body('description')
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage('Description needs to be provided.')
-    .isAlphanumeric()
-    .withMessage('Description has non-alphnumeric characters.'),
+    .withMessage('Description needs to be provided.'),
   body('packageSize')
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage('A size needs to be provided.')
-    .isAlphanumeric()
-    .withMessage('Package size has non-alphanumeric characters.'),
+    .withMessage('A size needs to be provided.'),
 
   // Process request after validation and sanitization
 
@@ -149,14 +150,13 @@ exports.product_create_post = [
 
     const product = new Product({
       name: req.body.name,
-      stockNumber: req.body.stockNumber,
-      description: req.body.description,
-      price: req.body.price,
-      packageSize: req.body.packageSize,
-      quantity: req.body.quantity,
+      department: req.body.department,
       category: req.body.category,
       subcategory: req.body.subcategory,
-      department: req.body.department,
+      description: req.body.description,
+      stockNumber: req.body.stockNumber,
+      price: req.body.price,
+      packageSize: req.body.packageSize,
     });
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.

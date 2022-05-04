@@ -70,11 +70,7 @@ exports.department_create_post = [
     .isLength({ min: 1 })
     .escape()
     .withMessage('Department name required'),
-  body('description')
-    .trim()
-    .isLength({ min: 1 })
-    .escape()
-    .withMessage('A descrption must be provided.'),
+  body('description').trim().escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
