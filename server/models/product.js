@@ -7,37 +7,7 @@ var ProductSchema = new Schema({
     type: String,
     required: true,
     minLength: 2,
-    maxlength: 50,
-  },
-  stockNumber: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 20,
-  },
-  description: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 5000,
-  },
-  price: {
-    type: Number,
-    minlength: 1,
-    maxLength: 10,
-  },
-  packageSize: {
-    type: String,
-    minLength: 2,
     maxlength: 100,
-  },
-  quantity: {
-    type: Number,
-    default: 0,
-  },
-  image: {
-    data: Buffer,
-    contentType: String,
   },
   department: [
     {
@@ -60,14 +30,26 @@ var ProductSchema = new Schema({
       required: true,
     },
   ],
-  dateCreated: {
-    type: Date,
-    immutable: true,
-    default: () => Date.now(),
+  description: {
+    type: String,
+    minlength: 5,
+    maxlength: 5000,
   },
-  updated: {
-    type: Date,
-    default: Date.now(),
+  stockNumber: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 20,
+  },
+  price: {
+    type: Number,
+    minlength: 1,
+    maxLength: 10,
+  },
+  packageSize: {
+    type: String,
+    minLength: 2,
+    maxlength: 100,
   },
 });
 
