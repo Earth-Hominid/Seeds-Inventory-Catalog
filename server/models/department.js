@@ -6,12 +6,12 @@ var DepartmentSchema = new Schema({
   name: {
     type: String,
     required: true,
-    minLength: 2,
+    minLength: 1,
     maxlength: 100,
   },
   description: {
     type: String,
-    minlength: 5,
+    minlength: 1,
     maxlength: 5000,
   },
 });
