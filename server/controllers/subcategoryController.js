@@ -107,6 +107,7 @@ exports.subcategory_create_post = [
       name: req.body.name,
       description: req.body.description,
       department: req.body.department,
+      category: req.body.category,
     });
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/errors messages.
