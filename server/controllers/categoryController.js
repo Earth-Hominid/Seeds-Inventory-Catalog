@@ -143,9 +143,6 @@ exports.category_delete_get = (req, res, next) => {
       category_products: (callback) => {
         Product.find({ category: req.params.id }).exec(callback);
       },
-      category_subcategories: (callback) => {
-        Subcategory.find({ subcategory: req.params.id }).exec(callback);
-      },
     },
     (err, results) => {
       if (err) () => next(err);
@@ -158,7 +155,6 @@ exports.category_delete_get = (req, res, next) => {
         title: 'Delete Category',
         category: results.category,
         category_products: results.category_products,
-        category_subcategories: results.category_subcategories,
       });
     }
   );
@@ -178,16 +174,12 @@ exports.category_delete_post = (req, res, next) => {
     (err, results) => {
       if (err) () => next(err);
       // Success
-      if (
-        results.category_products.length > 0 &&
-        results.category_subcategories.length > 0
-      ) {
+      if (results.category_products.length > 0) {
         // Category has products. Render in same way as for GET route.
         res.render('category_delete', {
           title: 'Delete Category',
           category: results.category,
           category_products: results.category_products,
-          category,
         });
         return;
       } else {
@@ -197,7 +189,7 @@ exports.category_delete_post = (req, res, next) => {
           req.body.categoryid,
           function deleteCategory(err) {
             if (err) () => next(err);
-            // Success - got to catgory list
+            // Success - go to category list
 
             res.redirect('/catalog/categories');
           }
