@@ -129,18 +129,54 @@ exports.department_delete_get = (req, res, next) => {
         res.redirect('/catalog/depatments');
       }
       // Successful, thus render.
-      res.status(200).render('depatment_delete', {
+      res.status(200).render('department_delete', {
         title: 'Delete Department',
         department: results.department,
-        category_products: results.department_products,
+        department_products: results.department_products,
       });
     }
   );
 };
 
 // Display Department delete on POST.
-exports.department_delete_post = (req, res, next) =>
-  res.send('Not implemented: Department delete POST');
+exports.department_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      department: (callback) => {
+        Department.findById(req.body.departmentid).exec(callback);
+      },
+      department_products: (callback) => {
+        Product.find({ department: req.body.departmentid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      // Success
+      if (results.department_products.length > 0) {
+        // Department has products, thus, render the same as the GET route.
+
+        res.render('department_delete', {
+          title: 'Delete Department',
+          department: results.department,
+          department_products: results.department_products,
+        });
+        return;
+      } else {
+        // Department has no products. Delete object and redirect to department list.
+
+        Department.findByIdAndRemove(
+          req.body.departmentid,
+          function deleteDepartment(err) {
+            if (err) () => next(err);
+            // Success - got to department list.
+
+            res.status(200).redirect('/catalog/departments');
+          }
+        );
+      }
+    }
+  );
+};
 
 // Display Department update form on GET request.
 exports.department_update_get = (req, res) =>
