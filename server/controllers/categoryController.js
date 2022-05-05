@@ -151,7 +151,7 @@ exports.category_delete_get = (req, res, next) => {
       if (err) () => next(err);
       if (results.category == null) {
         // No results.
-        res.redirect('/catalog/category');
+        res.redirect('/catalog/categories');
       }
       // Successful, thus render.
       res.render('category_delete', {
@@ -174,9 +174,6 @@ exports.category_delete_post = (req, res, next) => {
       category_products: (callback) => {
         Product.find({ category: req.body.categoryid }).exec(callback);
       },
-      category_subcategories: (callback) => {
-        Subcategory.find({ category: req.body.categoryid }).exec(callback);
-      },
     },
     (err, results) => {
       if (err) () => next(err);
@@ -191,14 +188,13 @@ exports.category_delete_post = (req, res, next) => {
           category: results.category,
           category_products: results.category_products,
           category,
-          category_subcategories: results.category_subcategories,
         });
         return;
       } else {
         // Category has no products. Delete object and redirect to the category list.
 
         Category.findByIdAndRemove(
-          req.body.authorid,
+          req.body.categoryid,
           function deleteCategory(err) {
             if (err) () => next(err);
             // Success - got to catgory list
