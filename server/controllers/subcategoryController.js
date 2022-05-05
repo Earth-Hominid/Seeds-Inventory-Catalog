@@ -136,12 +136,70 @@ exports.subcategory_create_post = [
 ];
 
 // Display subcategory delete form on GET request.
-exports.subcategory_delete_get = (req, res) =>
-  res.send('Not implemented yet: subcategory delete GET');
+exports.subcategory_delete_get = (req, res) => {
+  async.parallel(
+    {
+      subcategory: (callback) => {
+        Subcategory.findById(req.params.id).exec(callback);
+      },
+      subcategory_products: (callback) => {
+        Product.find({ subcategory: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.subcategory == null) {
+        // No results.
+        res.redirect('/catalog/subcategories');
+      }
+      // Successful, thus render.
+      res.render('subcategory_delete', {
+        title: 'Delete Sub-Category',
+        subcategory: results.subcategory,
+        subcategory_products: results.subcategory_products,
+      });
+    }
+  );
+};
 
 // Display subcategory delete on POST.
-exports.subcategory_delete_post = (req, res) =>
-  res.send('Not implemented: subcategory delete POST');
+exports.subcategory_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      subcategory: (callback) => {
+        Subcategory.findById(req.body.subcategoryid).exec(callback);
+      },
+      subcategory_products: (callback) => {
+        Product.find({ subcategory: req.body.subcategoryid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      // Success
+      if (results.subcategory_products.length > 0) {
+        // Sub-category has products. Render in same way as for GET route.
+        res.render('subcategory_delete', {
+          title: 'Delete Sub-Category',
+          subcategory: results.subcategory,
+          subcategory_products: results.subcategory_products,
+        });
+        return;
+      } else {
+        // Sub-Category has no products. Delete object and redirect to the sub-category list.
+
+        Subcategory.findByIdAndRemove(
+          req.body.subcategoryid,
+          function deleteSubcategory(err) {
+            if (err) () => next(err);
+            // Success - go to sub-category list
+
+            res.redirect('/catalog/subcategories');
+          }
+        );
+      }
+    }
+  );
+};
 
 // Display subcategory update form on GET request.
 exports.subcategory_update_get = (req, res) =>
