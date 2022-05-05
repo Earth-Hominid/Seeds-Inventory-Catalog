@@ -16,4 +16,11 @@ block content
             a.block.text-sm.leading-tight.font-medium.text-white.hover_underline.mt-1(href=category.url) #{product.name}
             p.mt-2.text-gray-500.text-xs #{product.description}
   else
-    h1.text-center.block.mt-2.text-slate-200.mb-1.text-lg #{category.name} is currently empty. You can add products or sub-categories by using the side-bar.
+    
+    h1.p-4.text-center.block.mt-2.text-slate-200.mb-1.text-lg #{category.name} is currently empty. You can add products or sub-categories by using the side-bar.
+  
+  hr
+  p 
+    div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-rose-900.hover_bg-rose-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12.mb-4
+      a(href=category.url+'/delete') 🪴
+        span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Delete category 🪴
