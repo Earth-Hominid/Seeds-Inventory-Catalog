@@ -165,8 +165,51 @@ exports.category_delete_get = (req, res, next) => {
 };
 
 // Display category delete on POST.
-exports.category_delete_post = (req, res) =>
-  res.send('Not implemented: category delete POST');
+exports.category_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      category: (callback) => {
+        Category.findById(req.body.categoryid).exec(callback);
+      },
+      category_products: (callback) => {
+        Product.find({ category: req.body.categoryid }).exec(callback);
+      },
+      category_subcategories: (callback) => {
+        Subcategory.find({ category: req.body.categoryid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      // Success
+      if (
+        results.category_products.length > 0 &&
+        results.category_subcategories.length > 0
+      ) {
+        // Category has products. Render in same way as for GET route.
+        res.render('category_delete', {
+          title: 'Delete Category',
+          category: results.category,
+          category_products: results.category_products,
+          category,
+          category_subcategories: results.category_subcategories,
+        });
+        return;
+      } else {
+        // Category has no products. Delete object and redirect to the category list.
+
+        Category.findByIdAndRemove(
+          req.body.authorid,
+          function deleteCategory(err) {
+            if (err) () => next(err);
+            // Success - got to catgory list
+
+            res.redirect('/catalog/categories');
+          }
+        );
+      }
+    }
+  );
+};
 
 // Display category update form on GET request.
 exports.category_update_get = (req, res) =>
