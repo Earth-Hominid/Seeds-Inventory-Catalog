@@ -112,11 +112,34 @@ exports.department_create_post = [
 ];
 
 // Display Department delete form on GET request.
-exports.department_delete_get = (req, res) =>
-  res.send('Not implemented yet: Department delete GET');
+exports.department_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      department: (callback) => {
+        Department.findById(req.params.id).exec(callback);
+      },
+      department_products: (callback) => {
+        Product.find({ department: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.department == null) {
+        // No results.
+        res.redirect('/catalog/depatments');
+      }
+      // Successful, thus render.
+      res.status(200).render('depatment_delete', {
+        title: 'Delete Department',
+        department: results.department,
+        category_products: results.department_products,
+      });
+    }
+  );
+};
 
 // Display Department delete on POST.
-exports.department_delete_post = (req, res) =>
+exports.department_delete_post = (req, res, next) =>
   res.send('Not implemented: Department delete POST');
 
 // Display Department update form on GET request.
