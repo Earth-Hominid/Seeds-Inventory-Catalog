@@ -319,7 +319,7 @@ exports.product_update_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
 
-      // Get all authors and genres for form.
+      // Get all categories, subcategories,  and departments for form.
       async.parallel({
         categories: (callback) => Category.find(callback),
         subcategories: (callback) => Subcategory.find(callback),
@@ -343,11 +343,10 @@ exports.product_update_post = [
         req.params.id,
         product,
         {},
-        function (err, theProduct) {
-          if (err)
-            () => next(err),
-              // Successful - redirect to book detail page.
-              res.redirect(theProduct.url);
+        function (err, theproduct) {
+          if (err) () => next(err);
+          // Successful - redirect to book detail page.
+          res.redirect(theproduct.url);
         }
       );
     }
