@@ -45,6 +45,18 @@ However, the error still occured on routes that went two deep, such as '/catalog
 link(href="../../styles/style.css",
 ```
 
+- Textarea would not show text retrieved back from MongoDB in order to update the description input. The problem occured because textarea will not use text found in value, instead it used text found within its body. Thus, I needed to change:
+
+```js
+textarea((value = undefined === product ? '' : product.description));
+```
+
+to
+
+```js
+textarea = undefined === product ? '' : product.description;
+```
+
 ### Dependencies
 
 - [Express](https://expressjs.com/)
