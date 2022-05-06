@@ -9,14 +9,18 @@ block content
               label.mt-4.text-gray-400.px-4.pb-2(for='name') Name:
               input.max-h-20.text-slate-700.rounded-md.text-md#name(type='text', placeholder="Enter name" required='true' name='name' value=(undefined===category ? '' : category.name))
               label.mt-4.text-gray-400.px-4.pb-2(for='description') Description:
-              textarea.rounded-md.text-slate-700.text-sm.max-h-20#description(type='textarea', placeholder="Enter description" name='description' required='true' value=(undefined===category ? '' : category.description))
+              textarea.rounded-md.text-slate-700.text-sm.max-h-20#description(type='text', placeholder="Enter description" name='description' required='true')=(undefined===category ? '' : category.description)
               
               label.mt-4.text-gray-400.px-4.pb-2(for='department') Department:
 
               select.rounded-md.text-black#department(type='select', placheholder='Select department' name='department' required='true' )
                 for department in departments 
                   if category 
-                    option(value=department._id selected=(department._id.toString()===category.department._id.toString() ? 'selected' : false) ) #{department.name} 
+                    option(value=
+                    department._id 
+                    selected=(
+                      department._id.toString()==category.department._id
+                      || department._id.toString() == category.department ) ? 'selected' : false) #{department.name} 
                   else
                     option(value=department._id) #{department.name}
             div.m-4.flex.justify-center
