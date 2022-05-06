@@ -200,8 +200,35 @@ exports.category_delete_post = (req, res, next) => {
 };
 
 // Display category update form on GET request.
-exports.category_update_get = (req, res) =>
-  res.send('Not implemented: category update GET');
+exports.category_update_get = (req, res, next) => {
+  // Get category and department for form.
+
+  async.parallel(
+    {
+      category: (callback) => {
+        Category.findById(req.params.id).populate('department').exec(callback);
+      },
+      departments: (callback) => {
+        Department.find(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.category == null) {
+        // No results.
+        let err = new Error('Category not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      res.render('category_form', {
+        title: 'Update Category',
+        departments: results.departments,
+        category: results.category,
+      });
+    }
+  );
+};
 
 // Handle category update on POST.
 exports.category_update_post = (req, res) =>
