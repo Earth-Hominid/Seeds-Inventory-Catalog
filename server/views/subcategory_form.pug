@@ -10,14 +10,20 @@ block content
               input.rounded-md.max-h-20.text-slate-700.text-sm#name(type='text', placeholder="Enter name" required='true' name='name' value=(undefined===subcategory ? '' : subcategory.name))
 
               label.mt-4.text-white.px-4.pb-2(for='description') Description:
-              textarea.rounded-md.text-slate-700.text-sm.max-h-20#description(type='textarea', placeholder="Enter description" name='description' required='true' value=(undefined===subcategory ? '' : subcategory.description))
+              textarea.rounded-md.text-slate-700.text-sm.max-h-20#description(type='text', placeholder="Enter description" name='description' required='true')=(undefined===subcategory ? '' : subcategory.description)
               
               label.mt-4.text-white.px-4.pb-2(for='department') Department:
 
               select.rounded-md#department(type='select', placheholder='Select department' name='department' required='true' )
                 for department in departments 
                   if subcategory 
-                    option(value=department._id selected=(department._id.toString()===subcategory.department._id.toString() ? 'selected' : false) ) #{department.name} 
+                    option(
+                      value=department._id 
+                      selected=(
+                        department._id.toString()==subcategory.department._id 
+                        || department._id.toString() == subcategory.department 
+                        ) ? 'selected' : false
+                        )  #{department.name} 
                   else
                     option(value=department._id) #{department.name}
 
@@ -26,7 +32,10 @@ block content
               select.rounded-md#category(type='select', placheholder='Select category' name='category' required='true' )
                 for category in categories 
                   if subcategory 
-                    option(value=category._id selected=(category._id.toString()===subcategory.category._id.toString() ? 'selected' : false) ) #{category.name} 
+                    option(
+                      value=category._id 
+                      selected=(
+                        category._id.toString()==subcategory.category._id || category._id.toString == subcategory.category ) ? 'selected' : false) #{category.name} 
                   else
                     option(value=category._id) #{category.name}
             div.m-4.flex.justify-center
