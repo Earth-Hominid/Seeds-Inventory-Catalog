@@ -27,7 +27,7 @@ As Mongoose is a 3rd party vendor, if this were a professional application I wou
 
 - Models are objects, we use Object Oriented Programming to create each new entry into the database.
 
-- In order to grab the name of the cateory object, I needed to add the [0]. This is a puzzle as when running the object through node in the console, category.name works fine. However, to show in PUG, "category[0].name" needs to be used.
+- In order to grab the name of the cateory object, [0] needs to be added. Thus, to show in PUG, "category[0].name" needs to be used.
 
 ```js
 ul
@@ -39,19 +39,19 @@ ul
 
 - CSS was rendering for the homepage only. Chrome dev tools showed a MIME type error in the console. To resolve the bug, an extra '.' was required in the stylesheet link. This solved the issue for routes that were one deep, such as '/catalog/departments'.
 
-However, the error still occured on routes that went two deep, such as '/catalog/categories/herbs'. Thus, an additional '../' needed to be added.
+However, the error still occured on routes that went two deep, such as '/catalog/categories/herbs'. Thus, an additional '../' needs to be added for each level added to the url.
 
 ```js
 link(href="../../styles/style.css",
 ```
 
-- Textarea would not show text retrieved back from MongoDB in order to update the description input. The problem occured because textarea will not use text found in value, instead it used text found within its body. Thus, I needed to change:
+- An issue occured with textarea not displaying text which was retrieved back from MongoDB in order to update the description textarea input. The problem occured because textarea does not use text found within it's value (like text input does), instead it uses text found within its body. Thus,
 
 ```js
 textarea((value = undefined === product ? '' : product.description));
 ```
 
-to
+needed to be changed to:
 
 ```js
 textarea = undefined === product ? '' : product.description;
