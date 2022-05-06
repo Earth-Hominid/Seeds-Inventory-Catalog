@@ -179,9 +179,72 @@ exports.department_delete_post = (req, res, next) => {
 };
 
 // Display Department update form on GET request.
-exports.department_update_get = (req, res) =>
-  res.send('Not implemented: Department update GET');
+exports.department_update_get = (req, res, next) => {
+  // Get department info. for form.
+
+  async.parallel(
+    {
+      department: (callback) => {
+        Department.findById(req.params.id).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.department == null) {
+        // No results.
+        let err = new Error('Department not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      res.render('department_form', {
+        title: 'Update Department',
+        department: results.department,
+      });
+    }
+  );
+};
 
 // Handle Department update on POST.
-exports.department_update_post = (req, res) =>
-  res.send('Not implemented: Department update POST');
+exports.department_update_post = [
+  // Validate and sanitize the name field.
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Department name required'),
+  body('description').trim().escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a department object with escaped and trimmed data.
+    const department = new Department({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render('department_form', {
+        title: 'Create Department',
+        department: department,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      Department.findByIdAndUpdate(
+        req.params.id,
+        department,
+        {},
+        function (err, thedepartment) {
+          if (err) () => next(err);
+          // Successful, redirect to department detail page.
+          res.redirect(thedepartment.url);
+        }
+      );
+    }
+  },
+];
