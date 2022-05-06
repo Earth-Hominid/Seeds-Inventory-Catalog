@@ -202,9 +202,99 @@ exports.subcategory_delete_post = (req, res, next) => {
 };
 
 // Display subcategory update form on GET request.
-exports.subcategory_update_get = (req, res) =>
-  res.send('Not implemented: subcategory update GET');
+exports.subcategory_update_get = (req, res, next) => {
+  // Get subcategory, categories and department.
+
+  async.parallel(
+    {
+      subcategory: (callback) => {
+        Subcategory.findById(req.params.id)
+          .populate('category department')
+          .exec(callback);
+      },
+      categories: (callback) => {
+        Category.find(callback);
+      },
+      departments: (callback) => {
+        Department.find(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.subcategory == null) {
+        // No results.
+        let err = new Error('Product not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      res.render('subcategory_form', {
+        title: 'Update Sub-Category',
+        categories: results.categories,
+        departments: results.departments,
+        subcategory: results.subcategory,
+      });
+    }
+  );
+};
 
 // Handle subcategory update on POST.
-exports.subcategory_update_post = (req, res) =>
-  res.send('Not implemented: subcategory update POST');
+exports.subcategory_update_post = [
+  //Validate and sanitize fields.
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Name must be specified.'),
+  body('description')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('A description must be provided.'),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a sub-category object with escaped and trimmed data.
+    const subcategory = new Subcategory({
+      name: req.body.name,
+      description: req.body.description,
+      department: req.body.department,
+      category: req.body.category,
+      _id: req.params.id, // This is required or a new ID will be assigned!
+    });
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+
+      // Get all categories,  and departments for form.
+      async.parallel({
+        categories: (callback) => Category.find(callback),
+        departments: (callback) => Department.find(callback),
+      }),
+        (err, results) => {
+          if (err) () => next(err);
+          res.render('subcategory_form', {
+            title: 'Update Sub-Category',
+            categories: results.categories,
+            departments: results.departments,
+            subcategory: subcategory,
+            errors: errors.array(),
+          });
+        };
+      return;
+    } else {
+      Subcategory.findByIdAndUpdate(
+        req.params.id,
+        subcategory,
+        {},
+        function (err, thesubcategory) {
+          if (err) () => next(err);
+          // Successful, thus, redirect to subcategory detail page.
+          res.redirect(thesubcategory.url);
+        }
+      );
+    }
+  },
+];
