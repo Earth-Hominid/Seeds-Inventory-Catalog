@@ -191,7 +191,7 @@ exports.category_delete_post = (req, res, next) => {
             if (err) () => next(err);
             // Success - go to category list
 
-            res.redirect('/catalog/categories');
+            res.status(200).redirect('/catalog/categories');
           }
         );
       }

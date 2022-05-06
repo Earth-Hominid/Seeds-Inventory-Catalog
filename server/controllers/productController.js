@@ -186,12 +186,52 @@ exports.product_create_post = [
 ];
 
 // Display product delete form on GET request.
-exports.product_delete_get = (req, res) =>
-  res.send('Not implemented yet: product delete GET');
+exports.product_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      product: (callback) => {
+        Product.findById(req.params.id).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      if (results.product == null) {
+        // No results.
+        res.redirect('/catalog/products');
+      }
+      // Successful, thus render.
+      res.status(200).render('product_delete', {
+        title: 'Delete Product',
+        product: results.product,
+      });
+    }
+  );
+};
 
 // Display product delete on POST.
-exports.product_delete_post = (req, res) =>
-  res.send('Not implemented: product delete POST');
+exports.product_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      product: (callback) => {
+        Product.findById(req.body.productid).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) () => next(err);
+      // No errors, delete object and redirect to product list.
+
+      Product.findByIdAndRemove(
+        req.body.productid,
+        function deleteProduct(err) {
+          if (err) () => next(err);
+          // Success - go to product list.
+
+          res.status(200).redirect('/catalog/products');
+        }
+      );
+    }
+  );
+};
 
 // Display product update form on GET request.
 exports.product_update_get = (req, res) =>
