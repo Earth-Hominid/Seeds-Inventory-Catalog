@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { upload } = require('./middleware/multerMiddleware');
 
 // Require controller modules
 const product_controller = require('../controllers/productController');
@@ -16,7 +17,11 @@ router.get('/', product_controller.index);
 router.get('/product/create', product_controller.product_create_get);
 
 // POST request to create a Product.
-router.post('/product/create', product_controller.product_create_post);
+router.post(
+  '/product/create',
+  upload.single('image'),
+  product_controller.product_create_post
+);
 
 // GET request to delete a Product.
 router.get('/product/:id/delete', product_controller.product_delete_get);
@@ -28,7 +33,11 @@ router.post('/product/:id/delete', product_controller.product_delete_post);
 router.get('/product/:id/update', product_controller.product_update_get);
 
 // POST request to update Product.
-router.post('/product/:id/update', product_controller.product_update_post);
+router.post(
+  '/product/:id/update',
+  upload.single('image'),
+  product_controller.product_update_post
+);
 
 // GET request for one Product.
 router.get('/product/:id/', product_controller.product_detail);
@@ -43,7 +52,11 @@ router.get('/products/', product_controller.product_list);
 router.get('/department/create', department_controller.department_create_get);
 
 // POST request for creating department.
-router.post('/department/create', department_controller.department_create_post);
+router.post(
+  '/department/create',
+  upload.single('image'),
+  department_controller.department_create_post
+);
 
 // GET request to delete department.
 router.get(
@@ -66,6 +79,7 @@ router.get(
 // POST request to update department.
 router.post(
   '/department/:id/update',
+  upload.single('image'),
   department_controller.department_update_post
 );
 
@@ -81,7 +95,11 @@ router.get('/departments', department_controller.department_list);
 router.get('/category/create', category_controller.category_create_get);
 
 //POST request for creating category.
-router.post('/category/create', category_controller.category_create_post);
+router.post(
+  '/category/create',
+  upload.single('image'),
+  category_controller.category_create_post
+);
 
 // GET request to delete category.
 router.get('/category/:id/delete', category_controller.category_delete_get);
@@ -93,7 +111,11 @@ router.post('/category/:id/delete', category_controller.category_delete_post);
 router.get('/category/:id/update', category_controller.category_update_get);
 
 // POST request to update category.
-router.post('/category/:id/update', category_controller.category_update_post);
+router.post(
+  '/category/:id/update',
+  upload.single('image'),
+  category_controller.category_update_post
+);
 
 // GET request for one category.
 router.get('/category/:id', category_controller.category_detail);
@@ -112,6 +134,7 @@ router.get(
 //POST request for creating subcategory.
 router.post(
   '/subcategory/create',
+  upload.single('image'),
   subcategory_controller.subcategory_create_post
 );
 
@@ -136,6 +159,7 @@ router.get(
 // POST request to update subcategory.
 router.post(
   '/subcategory/:id/update',
+  upload.single('image'),
   subcategory_controller.subcategory_update_post
 );
 
