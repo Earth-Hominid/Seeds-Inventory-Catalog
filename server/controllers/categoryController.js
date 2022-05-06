@@ -231,5 +231,61 @@ exports.category_update_get = (req, res, next) => {
 };
 
 // Handle category update on POST.
-exports.category_update_post = (req, res) =>
-  res.send('Not implemented: category update POST');
+exports.category_update_post = [
+  // Validate and sanitize fields.
+  body('name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Name must be specified.'),
+  body('description')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('A description must be provided.'),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a category object with escaped and trimmed data.
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      department: req.body.department,
+      _id: req.params.id, // This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+
+      // Get all categories, subcategories,  and departments for form.
+      async.parallel({
+        departments: (callback) => Department.find(callback),
+      }),
+        (err, results) => {
+          if (err) () => next(err);
+          res.render('category_form', {
+            title: 'Update Category',
+            departments: results.departments,
+            category: category,
+            errors: errors.array(),
+          });
+        };
+      return;
+    } else {
+      // Data form is valid. Update the record.
+      Category.findByIdAndUpdate(
+        req.params.id,
+        category,
+        {},
+        function (err, thecategory) {
+          if (err) () => next(err);
+          // Successful, thus redirect to category detail page.
+          res.status(200).redirect(thecategory.url);
+        }
+      );
+    }
+  },
+];
