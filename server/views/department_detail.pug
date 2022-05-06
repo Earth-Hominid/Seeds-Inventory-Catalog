@@ -9,7 +9,10 @@ block content
         div.uppercase.tracking-wide.text-lg.text-indigo-300.font-semibold #{department.name} 
         p.mt-2.text-gray-500.text-xs #{department.description}
   
-
-  div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-rose-900.hover_bg-rose-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 
-          a(href=department.url+'/delete') 🏬 
-          span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Delete department 🏬
+  div.flex.flex-col
+    div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-indigo-900.hover_bg-indigo-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 
+      a(href=department.url+'/update') 🏬 
+      span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Update department 🏬
+    div.group.relative.flex.items-center.justify-center.h-12.mt-2.mb-2.mx-auto.shadow-lg.bg-rose-900.hover_bg-rose-600.rounded-3xl.hover_rounded-xl.transition-all.duration-300.ease-linear.cursor-pointer.hover_text-white.w-12 
+      a(href=department.url+'/delete') 🏬 
+      span.group-hover_scale-100.absolute.w-auto.p-2.m-2.min-w-max.left-14.rounded-md.shadow-md.text-white.bg-gray-900.text-xs.font-bold.transition-all.duration-100.scale-0.origin-left Delete department 🏬
