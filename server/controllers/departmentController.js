@@ -4,6 +4,7 @@ const Subcategory = require('../models/subcategory');
 const Product = require('../models/product');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 // Display all departments
 exports.department_list = (req, res, next) => {
@@ -81,6 +82,10 @@ exports.department_create_post = [
     const department = new Department({
       name: req.body.name,
       description: req.body.description,
+      image: {
+        data: req.file.filename,
+        contentType: 'image/png',
+      },
     });
 
     if (!errors.isEmpty()) {
@@ -99,7 +104,7 @@ exports.department_create_post = [
       }).exec((err, found_department) => {
         if (err) () => next(err);
         if (found_department) () => res.redirect(found_department.url);
-        // Genre exists, redirect to its detail page.
+        // Department exists, redirect to its detail page.
         else {
           department.save((err) => {
             if (err) () => next(err); // Department saved. Redirect to department detail page.
@@ -224,6 +229,10 @@ exports.department_update_post = [
     const department = new Department({
       name: req.body.name,
       description: req.body.description,
+      image: {
+        data: req.file.filename,
+        contentType: 'image/png',
+      },
       _id: req.params.id,
     });
     if (!errors.isEmpty()) {
