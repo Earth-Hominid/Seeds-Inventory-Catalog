@@ -5,7 +5,7 @@ block content
       div.md_flex.flex-col
           h1.uppercase.tracking-wide.text-xl.text-indigo-300.font-semibold.text-center.p-2 #{title}
 
-          form(method='POST' action='')
+          form(method='POST' action='' enctype="multipart/form-data" )
             div.flex.flex-col.flex-wrap.items-center.justify-center.text-base
 
               label.mt-4.text-white.px-4.pb-2(for='name') * Department Name:
@@ -15,6 +15,11 @@ block content
               label.mt-4.text-white.px-4.pb-2(for='description') Description:
 
               textarea.text-slate-700.text-sm.rounded-md#description(type='text' placheholder='Provide a description' name='description' rows='5' required='true')=(undefined === department ? '' : department.description)
+
+              
+              label.mt-4.text-white.px-4.pb-2(for='image') Upload Image:
+
+              input.text-sm.p-2.rounded-md.text-white#image(type="file" name="image" value=(undefined===department ? '' : department.image))
             
             div.m-4.flex.justify-center
               button.p-2.bg-indigo-500.hover_bg-indigo-600.w-auto.text-slate-100.rounded-md.text-lg(type='submit') Submit
