@@ -14,6 +14,10 @@ var DepartmentSchema = new Schema({
     minlength: 1,
     maxlength: 5000,
   },
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 DepartmentSchema.virtual('url').get(function () {
