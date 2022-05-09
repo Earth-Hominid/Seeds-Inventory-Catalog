@@ -82,10 +82,6 @@ exports.department_create_post = [
     const department = new Department({
       name: req.body.name,
       description: req.body.description,
-      image: {
-        data: req.file.filename,
-        contentType: 'image/png',
-      },
     });
 
     if (!errors.isEmpty()) {
@@ -229,10 +225,6 @@ exports.department_update_post = [
     const department = new Department({
       name: req.body.name,
       description: req.body.description,
-      image: {
-        data: req.file.filename,
-        contentType: 'image/png',
-      },
       _id: req.params.id,
     });
     if (!errors.isEmpty()) {
