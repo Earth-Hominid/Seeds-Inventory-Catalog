@@ -4,7 +4,7 @@
 
 An inventory management application for an online seed store.
 
-Click here for the [live demo](https://pure-brushlands-30098.herokuapp.com/catalog).
+Click here for the [live demo](https://pure-brushlands-30098.herokuapp.com/catalog). (The application will take a few seconds to start from sleep, as it is on the heroku free plan.)
 
 ## Description
 
@@ -26,6 +26,7 @@ The Tailwind library was used for css styling, and the UI theme is based on the 
 
 - Follows the MVC (Model, View, Controller) design pattern.
 - Modular structure for route handling code.
+- Clean UI
 
 ## Epiphanies | Resolved Issues
 
