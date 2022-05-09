@@ -1,6 +1,9 @@
 {
   "name": "seed-store",
   "version": "1.0.0",
+  "engines": {
+    "node": "17.2.0"
+  },
   "description": "A seed catalog made with ExpressJS.",
   "main": "server.js",
   "scripts": {
