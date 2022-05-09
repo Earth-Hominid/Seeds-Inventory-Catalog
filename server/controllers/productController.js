@@ -156,7 +156,6 @@ exports.product_create_post = [
       description: req.body.description,
       stockNumber: req.body.stockNumber,
       price: req.body.price,
-      image: req.file.filename,
       packageSize: req.body.packageSize,
     });
     if (!errors.isEmpty()) {
@@ -314,7 +313,6 @@ exports.product_update_post = [
       stockNumber: req.body.stockNumber,
       price: req.body.price,
       packageSize: req.body.packageSize,
-      image: req.file.filename,
       _id: req.params.id, // This is required, or a new ID will be assigned!
     });
 
