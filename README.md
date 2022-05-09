@@ -6,6 +6,8 @@ An inventory management application for an online seed store.
 
 Click here for the [live demo](https://pure-brushlands-30098.herokuapp.com/catalog). (The application will take a few seconds to start from sleep, as it is on the heroku free plan.)
 
+<img width="944" alt="home" src="https://user-images.githubusercontent.com/66766688/167498047-e690028f-9bbc-4758-8e93-e2d970273f25.png">
+
 ## Description
 
 The purpose of this project is to practice using the ExpressJS framework to build a RESTful api that communicates with a MongoDB database. The PUG templating language was utilized for the front-end.
@@ -13,6 +15,8 @@ The purpose of this project is to practice using the ExpressJS framework to buil
 The application provides inventory control software for a seed company. The Seed Department is segregated into categories and sub-catgories which contain different products.
 
 Departments, categories, sub-categories and products can be created, added, deleted and updated.
+
+<img width="945" alt="add-prod" src="https://user-images.githubusercontent.com/66766688/167498110-0f87c60f-8a62-4616-9fd2-b4d4e605505d.png">
 
 MongoDB was chosen due to it's ease of of use and fast time to productivity. In order to communicate with the database, Mongoose (an ODM library for MongoDB) was chosen for its simplicity and fast learning curve.
 
