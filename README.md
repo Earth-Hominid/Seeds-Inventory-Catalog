@@ -20,6 +20,8 @@ This project is a simple application to assist in learning the ExpressJS framewo
 
 As Mongoose is a 3rd party vendor, if this were a professional application I would research MongoDB's native drivers and elect to utilize them over Mongoose.
 
+The Tailwind library was used for css styling, and the UI theme is based on the popular app Discord.
+
 ## Features
 
 - Follows the MVC (Model, View, Controller) design pattern.
