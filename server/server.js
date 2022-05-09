@@ -32,4 +32,4 @@ app.use('/catalog', catalogRouter);
 // error handler
 app.use(handleError);
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(process.env.PORT, '0.0.0.0');
