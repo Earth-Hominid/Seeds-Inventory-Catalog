@@ -9,8 +9,7 @@ block content
   each product in category_products
     div.max-w-xs.bg-gray-900.mx-auto.rounded-xl.shadow-md.overflow-hidden.md_max-w-2xl.m-4
       div.md_flex
-        div.md_shrink-0 
-          img.md_h-auto.w-full.object-cover.md_w-48.h-48(src='/images/dolce-basil.png')
+        div.md_shrink-0
         div.p-6
           div.uppercase.tracking-wide.text-sm.text-indigo-300.font-semibold $#{`${product.price} | ${product.packageSize}`}
             a.block.text-sm.leading-tight.font-medium.text-white.hover_underline.mt-1(href=category.url) #{product.name}

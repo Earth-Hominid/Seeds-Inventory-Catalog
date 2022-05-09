@@ -4,7 +4,7 @@ block content
   div.max-w-xs.bg-gray-900.mx-auto.rounded-xl.shadow-md.overflow-hidden.m-4
     h1.tracking-wide.text-xl.text-indigo-300.font-semibold.text-center.p-2 #{title}
 
-          form(method='POST' action='' enctype="multipart/form-data")
+          form(method='POST' action='')
             div.flex.flex-col.m-2.p-2.text-base
               label.mt-4.text-gray-400.px-4.pb-2(for='name') Name:
               input.max-h-20.text-slate-700.rounded-md.text-md#name(type='text', placeholder="Enter name" required='true' name='name' value=(undefined===category ? '' : category.name))
