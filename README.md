@@ -67,3 +67,5 @@ textarea = undefined === product ? '' : product.description;
 - [Multer](https://github.com/expressjs/multer) Middleware for uploading files
 - [Express-Validator](https://express-validator.github.io/docs/#basic-guide)
 - [ValidatorJS](https://github.com/validatorjs/validator.js)
+- [Compression](https://www.npmjs.com/package/compression)
+- [Helmut](https://helmetjs.github.io/)
