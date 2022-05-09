@@ -4,7 +4,7 @@
 
 An inventory management application for an online seed store.
 
-Click here for the (live demo)[https://pure-brushlands-30098.herokuapp.com/catalog].
+Click here for the [live demo](https://pure-brushlands-30098.herokuapp.com/catalog).
 
 ## Description
 
