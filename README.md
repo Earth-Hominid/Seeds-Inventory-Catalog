@@ -4,7 +4,7 @@
 
 An inventory management application for an online seed store.
 
-Click here for the [live demo](https://pure-brushlands-30098.herokuapp.com/catalog). (The application will take a few seconds to start from sleep, as it is on the heroku free plan.)
+Click here for the [live demo](seeds-inventory-catalog-production.up.railway.app).
 
 <img width="944" alt="home" src="https://user-images.githubusercontent.com/66766688/167498047-e690028f-9bbc-4758-8e93-e2d970273f25.png">
 
